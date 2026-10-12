@@ -123,7 +123,7 @@ int main()
         int shmid = shmget(key_h, SHM_MAXSIZE, IPC_CREAT | 0666);
         if (shmid < 0) { perror("shmget chat"); continue; }
 
-        // ВАЖНО: читаем nattch ДО собственного shmat
+        
         struct shmid_ds buf;
         if (shmctl(shmid, IPC_STAT, &buf) < 0) {
             perror("shmctl");
@@ -154,7 +154,7 @@ int main()
             continue;
         }
 
-        if (process_pid == 0) // ПОТОМОК: Чтение сообщений
+        if (process_pid == 0) 
         {
             while (1)
             {
@@ -175,7 +175,7 @@ int main()
             shmdt(shm_adr);
             exit(0);
         }
-        else // РОДИТЕЛЬ: Отправка сообщений
+        else 
         {
             char line[1024];
             bool forced_exit = false;
